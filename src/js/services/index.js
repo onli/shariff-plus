@@ -1,28 +1,23 @@
-//module.exports = {
-//  buffer: require('./buffer'),
-//  diaspora: require('./diaspora'),
-//  facebook: require('./facebook'),
-//  facebooklike: require('./facebooklike'),
-//  flattr: require('./flattr'),
-//  flipboard: require('./flipboard'),
-//  info: require('./info'),
-//  linkedin: require('./linkedin'),
-//  mail: require('./mail'),
-//  pinterest: require('./pinterest'),
-//  pocket: require('./pocket'),
-//  print: require('./print'),
-//  qzone: require('./qzone'),
-//  reddit: require('./reddit'),
-//  stumbleupon: require('./stumbleupon'),
-//  telegram: require('./telegram'),
-//  tencent: require('./tencent-weibo'),
-//  threema: require('./threema'),
-//  tumblr: require('./tumblr'),
-//  twitter: require('./twitter'),
-//  vk: require('./vk'),
-//  weibo: require('./weibo'),
-//  whatsapp: require('./whatsapp'),
-//  xing: require('./xing')
-//}
 export {default as buffer} from './buffer.js'
+export {default as diaspora} from './diaspora.js'
+export {default as facebook} from './facebook.js'
+export {default as flattr} from './flattr.js'
+export {default as flipboard} from './flipboard.js'
+export {default as info} from './info.js'
+export {default as linkedin} from './linkedin.js'
+export {default as mail} from './mail.js'
+export {default as pinterest} from './pinterest.js'
+export {default as pocket} from './pocket.js'
+export {default as print} from './print.js'
+export {default as qzone} from './qzone.js'
+export {default as reddit} from './reddit.js'
+export {default as stumbleupon} from './stumbleupon.js'
+export {default as telegram} from './telegram.js'
+export {default as 'tencent-weibo'} from './tencent-weibo.js'
+export {default as threema} from './threema.js'
+export {default as tumblr} from './tumblr.js'
 export {default as twitter} from './twitter.js'
+export {default as vk} from './vk.js'
+export {default as weibo} from './weibo.js'
+export {default as whatsapp} from './whatsapp.js'
+export {default as xing} from './xing.js'
