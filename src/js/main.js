@@ -196,7 +196,6 @@ class Shariff {
         }
       }
       if (this.isEnabledService(serviceName) && doAppend) {
-        console.log(serviceName);
         let counter = document.createElement('span');
         counter.classList.add('share_count');
         counter.innerHTML = value;
@@ -267,7 +266,7 @@ class Shariff {
     buttonList.addEventListener('click', function(e) {
       e.preventDefault();
 
-      var url = this.href;
+      var url = this.querySelector('[data-rel="popup"]').href;
 
       // if a twitter widget is embedded on current site twitter's widget.js
       // will open a popup so we should not open a second one.
@@ -277,7 +276,6 @@ class Shariff {
           return
         }
       }
-
 
       window.open(url, '_blank', 'width=600,height=460')
     });
