@@ -183,7 +183,7 @@ class Shariff {
         return;
     }
     var fbValue = null;
-    console.log(data);
+
     for (const [serviceName, value] of Object.entries(data)) {
       if (value >= 1000) {
         value = Math.round(value / 1000) + 'k'
@@ -266,12 +266,12 @@ class Shariff {
     buttonList.addEventListener('click', function(e) {
       e.preventDefault();
 
-      var url = this.querySelector('[data-rel="popup"]').href;
+      var url = e.target.closest('[data-rel="popup"]').href;
 
       // if a twitter widget is embedded on current site twitter's widget.js
       // will open a popup so we should not open a second one.
       if (url.match(/twitter\.com\/intent\/(\w+)/)) {
-        var w = global.window
+        var w = window
         if (w.__twttr && w.__twttr.widgets && w.__twttr.widgets.loaded) {
           return
         }

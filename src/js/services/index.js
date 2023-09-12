@@ -25,3 +25,4 @@
 //  xing: require('./xing')
 //}
 export {default as buffer} from './buffer.js'
+export {default as twitter} from './twitter.js'
