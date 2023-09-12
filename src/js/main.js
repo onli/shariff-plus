@@ -284,9 +284,6 @@ class Shariff {
   }
 }
 
-// TODO: Have a shariff class that builds the shariff html elements
-
-// TODO: Init the shariff object for all shariff placeholder elements, .shariff
 document.querySelectorAll('.shariff').forEach(function (currentValue, currentIndex, listObj) {
   if (!currentValue.hasOwnProperty('shariff')) {
     currentValue.shariff = new Shariff(currentValue, {theme: 'abc'});
