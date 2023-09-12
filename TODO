@@ -1,0 +1,9 @@
+TODO:
+
+ 1. Build a simple JS script that builds the shariff buttons, using the old module files, as ES6 modules
+ 2. Have a makefile that uses rollup.js to convert the main.js and the modules into one shariff.js
+ 3. Transform the .less files into real CSS
+ 4. Optionally, use the makefile to concat the .css files into one main .css file
+ 5. Decide how to handle the FontAwesome icons. Use like now, replace?
+ 6. Cleanup the package.json, remove all dependencies (but FontAwesome?)
+ 7. Add minimization to the makefile, a shariff.min.js?
