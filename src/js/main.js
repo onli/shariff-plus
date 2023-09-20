@@ -1,5 +1,11 @@
 import * as services from './services/index.js';
 
+
+const shariffScript = document.currentScript ||
+  document.querySelector('script[src$="shariff.js"]') ||
+  document.querySelector('script[src$="shariff.min.js"]')
+const shariffPath = shariffScript ? shariffScript.src.split('/').slice(0, -1).join('/') : ''
+
 const Defaults = {
   theme: 'color',
 
@@ -40,7 +46,15 @@ const Defaults = {
   referrerTrack: null,
 
   // services to be enabled in the following order
-  services: ['twitter', 'facebook', 'info'],
+  services: ['twitter', 'facebooklike', 'facebook', 'info'],
+
+  dialogsMediaUrl: shariffPath,
+
+  facebookCountBtn: 'like',
+
+  facebooklikeCss: 'facebooklike_dlg.css',
+
+  facebooklikeOptions: { width: 450, layout: 'standard', action: 'like', size: 'large', show_faces: true, share: true, appId: null },
 
   title: document.title,
 
@@ -123,7 +137,7 @@ class Shariff {
 
   // returns content of <meta name="" content=""> tags or '' if empty/non existant
   getMeta(name) {
-    var metaContent = $(`meta[name="${name}"],[property="${name}"]`).attr('content')
+    var metaContent = document.querySelector(`meta[name="${name}"],[property="${name}"]`)?.getAttribute('content');
     return metaContent || ''
   }
 
@@ -177,6 +191,18 @@ class Shariff {
        });
   }
 
+  getDialogsMediaUrl() {
+    return this.options.dialogsMediaUrl || ''
+  }
+
+  getFacebooklikeCss() {
+    return this.options.facebooklikeCss
+  }
+
+  getFacebooklikeOptions() {
+    return this.options.facebooklikeOptions
+  }
+
   // add value of shares for each service
   _updateCounts(data, status, xhr) {
     if (!data) {
@@ -198,11 +224,19 @@ class Shariff {
       if (this.isEnabledService(serviceName) && doAppend) {
         let counter = document.createElement('span');
         counter.classList.add('share_count');
-        counter.innerHTML = value;
+        counter.innerHTML = fbValue;
         this.element
           .querySelector(`.${serviceName} a`)
           .append(counter);
       }
+      if (this.isEnabledService('facebooklike') && (fbValue !== null) && this.options.facebookCountBtn !== 'share') {
+        let counter = document.createElement('span');
+        counter.classList.add('share_count');
+        counter.innerHTML = value;
+        this.element
+          .querySelector(`.facebooklike a`)
+          .append(counter);
+    }
     }
   }
 
@@ -215,6 +249,7 @@ class Shariff {
       'button-style-' + this.options.buttonStyle,
       'shariff-col-' + this.options.services.length
     );
+    var dialogServices = [];
     // add html for service-links
     this.services.forEach(service => {
       var li = document.createElement('li');
@@ -234,6 +269,11 @@ class Shariff {
         var prefix = document.createElement('span');
         prefix.classList.add(service.faPrefix, service.faName);
         shareLink.prepend(prefix);
+      }
+
+      if (service.shareUrl.match(/javascript:/) && typeof service.dialogHtml !== 'undefined') {
+        shareLink.dataset['dlg_idx'] = dialogServices.length;
+        dialogServices[dialogServices.length] = service
       }
 
       if (service.popup) {
@@ -265,8 +305,8 @@ class Shariff {
     // event delegation
     buttonList.addEventListener('click', function(e) {
       e.preventDefault();
-
-      var url = e.target.closest('[data-rel="popup"]').href;
+      let target = e.target.closest('[data-rel="popup"]');
+      var url = target.href;
 
       // if a twitter widget is embedded on current site twitter's widget.js
       // will open a popup so we should not open a second one.
@@ -275,6 +315,21 @@ class Shariff {
         if (w.__twttr && w.__twttr.widgets && w.__twttr.widgets.loaded) {
           return
         }
+      }
+
+      var dialogIdx = target.dataset['dlg_idx'];
+
+      if (dialogIdx && !isNaN(dialogIdx) && typeof dialogServices[dialogIdx].dialogHtml !== 'undefined') {
+        var title = target.getAttribute('title');
+        var headInnerHTML = '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+          '<title>' + title + '</title>'
+        if (typeof dialogServices[dialogIdx].dialogCssUrl !== 'undefined' && dialogServices[dialogIdx].dialogCssUrl) {
+          headInnerHTML += '<link rel="stylesheet" href="' + dialogServices[dialogIdx].dialogCssUrl + '">'
+        }
+        var newWin = window.open('', '_blank', 'width=600,height=460')
+        newWin.document.head.innerHTML = headInnerHTML
+        newWin.document.body.innerHTML = dialogServices[dialogIdx].dialogHtml
+        return
       }
 
       window.open(url, '_blank', 'width=600,height=460')

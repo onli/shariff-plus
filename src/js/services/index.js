@@ -1,6 +1,7 @@
 export {default as buffer} from './buffer.js'
 export {default as diaspora} from './diaspora.js'
 export {default as facebook} from './facebook.js'
+export {default as facebooklike} from './facebooklike.js'
 export {default as flattr} from './flattr.js'
 export {default as flipboard} from './flipboard.js'
 export {default as info} from './info.js'
