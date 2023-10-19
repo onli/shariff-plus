@@ -114,7 +114,7 @@ Differences to Shariff are marked with (1), (2) and so on and explained below th
 
 (1) This option exists only in Shariff-Plus.
 
-(2) The default value of Shariff is `http://ct.de/-2467514`.
+(2) The default value of Shariff is `https://ct.de/-2467514`.
 
 (3) The service `facebooklike` exists only in Shariff-Plus.
 

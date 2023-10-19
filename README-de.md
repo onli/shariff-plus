@@ -114,7 +114,7 @@ Unterschiede zu Shariff sind mit (1), (2) usw. markiert und werden unterhalb der
 
 (1) Diese Option gibt es nur bei Shariff-Plus.
 
-(2) Der Standardwert bei Shariff ist `http://ct.de/-2467514`.
+(2) Der Standardwert bei Shariff ist `https://ct.de/-2467514`.
 
 (3) Den Service `facebooklike` gibt es nur bei Shariff-Plus.
 
@@ -217,7 +217,7 @@ Drittanbieter-Backends:
 
 * [shariff-backend-java](https://github.com/shred/shariff-backend-java)
 
-Die URL, unter der das Backend erreichbar ist, muss im `data`-Attribut `data-backend-url` angegeben werden. Ein Backend unter der URL `http://example.com/my-shariff-backend/` wird in `data-backend-url` so angegeben: `/my-shariff-backend/`. Den Rest erledigt das Skript.
+Die URL, unter der das Backend erreichbar ist, muss im `data`-Attribut `data-backend-url` angegeben werden. Ein Backend unter der URL `https://example.com/my-shariff-backend/` wird in `data-backend-url` so angegeben: `/my-shariff-backend/`. Den Rest erledigt das Skript.
 
 ## Drittanbieter-Integrationen
 
