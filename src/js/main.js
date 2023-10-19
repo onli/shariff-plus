@@ -24,14 +24,16 @@ const Defaults = {
   // fallback language for not fully localized services
   langFallback: 'en',
 
-  mailUrl: function() {
+  mailUrl: function () {
     var shareUrl = url.parse(this.getURL(), true)
     shareUrl.query.view = 'mail'
     delete shareUrl.search
     return url.format(shareUrl)
   },
 
-  mailBody: function() { return this.getURL() },
+  mailBody: function () {
+    return this.getURL()
+  },
 
   // Media (e.g. image) URL to be shared
   mediaUrl: null,
@@ -72,7 +74,11 @@ const Defaults = {
     if (canonical.length > 0) {
       if (canonical.indexOf('http') < 0) {
         if (canonical.indexOf('//') !== 0) {
-          canonical = document.location.protocol + '//' + document.location.host + canonical
+          canonical =
+            global.document.location.protocol +
+            '//' +
+            global.document.location.host +
+            canonical
         } else {
           canonical = document.location.protocol + canonical
         }
@@ -81,7 +87,7 @@ const Defaults = {
     }
 
     return url
-  }
+  },
 }
 
 class Shariff {
@@ -104,16 +110,19 @@ class Shariff {
 
     // filter available services to those that are enabled and initialize them
     this.services = Object.keys(services)
-      .filter(service => this.isEnabledService(service))
+      .filter((service) => this.isEnabledService(service))
       .sort((a, b) => {
         let services = this.options.services
         return services.indexOf(a) - services.indexOf(b)
       })
-      .map(serviceName => services[serviceName](this))
+      .map((serviceName) => services[serviceName](this))
 
     this._addButtonList()
 
-    if (this.options.backendUrl !== null && this.options.buttonStyle !== 'icon') {
+    if (
+      this.options.backendUrl !== null &&
+      this.options.buttonStyle !== 'icon'
+    ) {
       this.getShares(this._updateCounts.bind(this))
     }
   }
@@ -146,13 +155,13 @@ class Shariff {
   }
 
   getInfoDisplayPopup() {
-    return (this.options.infoDisplay === 'popup')
+    return this.options.infoDisplay === 'popup'
   }
 
   getInfoDisplayBlank() {
     return (
-      (this.options.infoDisplay !== 'popup') &&
-      (this.options.infoDisplay !== 'self')
+      this.options.infoDisplay !== 'popup' &&
+      this.options.infoDisplay !== 'self'
     )
   }
 
@@ -162,7 +171,7 @@ class Shariff {
 
   getOption(name) {
     var option = this.options[name]
-    return (typeof option === 'function') ? option.call(this) : option
+    return typeof option === 'function' ? option.call(this) : option
   }
 
   getTitle() {
@@ -172,7 +181,7 @@ class Shariff {
     }
     title = title || this.getMeta('DC.title')
     let creator = this.getMeta('DC.creator')
-    return (title && creator) ? `${title} - ${creator}` : title
+    return title && creator ? `${title} - ${creator}` : title
   }
 
   getReferrerTrack() {
@@ -265,7 +274,10 @@ class Shariff {
         shareLink.append(shareText);
       }
 
-      if (typeof service.faPrefix !== 'undefined' && typeof service.faName !== 'undefined') {
+      if (
+        typeof service.faPrefix !== 'undefined' &&
+        typeof service.faName !== 'undefined'
+      ) {
         var prefix = document.createElement('span');
         prefix.classList.add(service.faPrefix, service.faName);
         shareLink.prepend(prefix);
