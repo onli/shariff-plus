@@ -245,7 +245,7 @@ class Shariff {
         this.element
           .querySelector(`.facebooklike a`)
           .append(counter);
-    }
+      }
     }
   }
 
