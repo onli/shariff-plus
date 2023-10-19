@@ -31,14 +31,16 @@ const Defaults = {
   // fallback language for not fully localized services
   langFallback: 'en',
 
-  mailUrl: function() {
+  mailUrl: function () {
     var shareUrl = url.parse(this.getURL(), true)
     shareUrl.query.view = 'mail'
     delete shareUrl.search
     return url.format(shareUrl)
   },
 
-  mailBody: function() { return this.getURL() },
+  mailBody: function () {
+    return this.getURL()
+  },
 
   // Media (e.g. image) URL to be shared
   mediaUrl: null,
@@ -72,14 +74,19 @@ const Defaults = {
   flattrCategory: null,
 
   // build URI from rel="canonical" or document.location
-  url: function() {
+  url: function () {
     var url = global.document.location.href
-    var canonical = $('link[rel=canonical]').attr('href') || this.getMeta('og:url') || ''
+    var canonical =
+      $('link[rel=canonical]').attr('href') || this.getMeta('og:url') || ''
 
     if (canonical.length > 0) {
       if (canonical.indexOf('http') < 0) {
         if (canonical.indexOf('//') !== 0) {
-          canonical = global.document.location.protocol + '//' + global.document.location.host + canonical
+          canonical =
+            global.document.location.protocol +
+            '//' +
+            global.document.location.host +
+            canonical
         } else {
           canonical = global.document.location.protocol + canonical
         }
@@ -88,7 +95,7 @@ const Defaults = {
     }
 
     return url
-  }
+  },
 }
 
 class Shariff {
@@ -103,16 +110,19 @@ class Shariff {
 
     // filter available services to those that are enabled and initialize them
     this.services = Object.keys(services)
-      .filter(service => this.isEnabledService(service))
+      .filter((service) => this.isEnabledService(service))
       .sort((a, b) => {
         let services = this.options.services
         return services.indexOf(a) - services.indexOf(b)
       })
-      .map(serviceName => services[serviceName](this))
+      .map((serviceName) => services[serviceName](this))
 
     this._addButtonList()
 
-    if (this.options.backendUrl !== null && this.options.buttonStyle !== 'icon') {
+    if (
+      this.options.backendUrl !== null &&
+      this.options.buttonStyle !== 'icon'
+    ) {
       this.getShares(this._updateCounts.bind(this))
     }
   }
@@ -140,7 +150,9 @@ class Shariff {
 
   // returns content of <meta name="" content=""> tags or '' if empty/non existant
   getMeta(name) {
-    var metaContent = $(`meta[name="${name}"],[property="${name}"]`).attr('content')
+    var metaContent = $(`meta[name="${name}"],[property="${name}"]`).attr(
+      'content',
+    )
     return metaContent || ''
   }
 
@@ -149,13 +161,13 @@ class Shariff {
   }
 
   getInfoDisplayPopup() {
-    return (this.options.infoDisplay === 'popup')
+    return this.options.infoDisplay === 'popup'
   }
 
   getInfoDisplayBlank() {
     return (
-      (this.options.infoDisplay !== 'popup') &&
-      (this.options.infoDisplay !== 'self')
+      this.options.infoDisplay !== 'popup' &&
+      this.options.infoDisplay !== 'self'
     )
   }
 
@@ -165,7 +177,7 @@ class Shariff {
 
   getOption(name) {
     var option = this.options[name]
-    return (typeof option === 'function') ? option.call(this) : option
+    return typeof option === 'function' ? option.call(this) : option
   }
 
   getTitle() {
@@ -173,7 +185,7 @@ class Shariff {
     if ($(this.element).data()['title']) return title
     title = title || this.getMeta('DC.title')
     let creator = this.getMeta('DC.creator')
-    return (title && creator) ? `${title} - ${creator}` : title
+    return title && creator ? `${title} - ${creator}` : title
   }
 
   getReferrerTrack() {
@@ -230,17 +242,19 @@ class Shariff {
 
   // add html for button-container
   _addButtonList() {
-    var $buttonList = $('<ul/>').addClass([
-      'theme-' + this.options.theme,
-      'orientation-' + this.options.orientation,
-      'button-style-' + this.options.buttonStyle,
-      'shariff-col-' + this.options.services.length
-    ].join(' '))
+    var $buttonList = $('<ul/>').addClass(
+      [
+        'theme-' + this.options.theme,
+        'orientation-' + this.options.orientation,
+        'button-style-' + this.options.buttonStyle,
+        'shariff-col-' + this.options.services.length,
+      ].join(' '),
+    )
 
     var dialogServices = []
 
     // add html for service-links
-    this.services.forEach(service => {
+    this.services.forEach((service) => {
       var $li = $('<li/>').addClass(`shariff-button ${service.name}`)
       var $shareLink = $('<a/>').attr('href', service.shareUrl)
 
@@ -251,8 +265,13 @@ class Shariff {
         $shareLink.append($shareText)
       }
 
-      if (typeof service.faPrefix !== 'undefined' && typeof service.faName !== 'undefined') {
-        $shareLink.prepend($('<span/>').addClass(`${service.faPrefix} ${service.faName}`))
+      if (
+        typeof service.faPrefix !== 'undefined' &&
+        typeof service.faName !== 'undefined'
+      ) {
+        $shareLink.prepend(
+          $('<span/>').addClass(`${service.faPrefix} ${service.faName}`),
+        )
       }
 
       if (service.shareUrl.match(/javascript:/) && typeof service.dialogHtml !== 'undefined') {
@@ -283,11 +302,16 @@ class Shariff {
 
       $li.append($shareLink)
 
+      // trigger a custom event when share button is clicked
+      $li.on('click', 'li', function (e) {
+        $li.trigger('shariff-share', service)
+      })
+
       $buttonList.append($li)
     })
 
     // event delegation
-    $buttonList.on('click', '[data-rel="popup"]', function(e) {
+    $buttonList.on('click', '[data-rel="popup"]', function (e) {
       e.preventDefault()
 
       var url = $(this).attr('href')
@@ -328,9 +352,9 @@ module.exports = Shariff
 // export Shariff class to global (for non-Node users)
 global.Shariff = Shariff
 
-$(function() {
+$(function () {
   // initialize .shariff elements
-  $('.shariff').each(function() {
+  $('.shariff').each(function () {
     if (!this.hasOwnProperty('shariff')) {
       this.shariff = new Shariff(this)
     }
