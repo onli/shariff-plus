@@ -75,9 +75,9 @@ const Defaults = {
       if (canonical.indexOf('http') < 0) {
         if (canonical.indexOf('//') !== 0) {
           canonical =
-            global.document.location.protocol +
+            document.location.protocol +
             '//' +
-            global.document.location.host +
+            document.location.host +
             canonical
         } else {
           canonical = document.location.protocol + canonical
