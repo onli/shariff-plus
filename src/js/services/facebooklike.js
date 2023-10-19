@@ -107,7 +107,7 @@ module.exports = function (shariff) {
       sr: 'свиђа ми се',
       sv: 'gilla',
       tr: 'beğen',
-      zh: '赞'
+      zh: '赞',
     },
     name: 'facebooklike',
     faPrefix: 'fas',
@@ -137,7 +137,7 @@ module.exports = function (shariff) {
       sr: 'Свиђа ми се/Не свиђа ми се на Фацебооку',
       sv: 'Gilla/Sluta gilla på Facebook',
       tr: 'Facebook\'ta Beğen/Beğenmekten Vazgeç',
-      zh: 'Facebook上的赞/取消赞'
+      zh: 'Facebook上的赞/取消赞',
     },
     shareUrl: 'javascript:void(0);',
     dialogHtml: dialogHtml,
