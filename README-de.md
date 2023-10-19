@@ -33,7 +33,7 @@ Code-Beispiel:
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="/path/to/shariff.complete.css" rel="stylesheet">
+    <link href="/path/to/shariff.min.css" rel="stylesheet">
 </head>
 <body>
     <h1>My article</h1>
@@ -43,10 +43,10 @@ Code-Beispiel:
     <div class="shariff"></div>
 
     <h2>Fortgeschrittene Optionen:</h2>
-    <div class="shariff" data-backend-url="/path/to/backend" data-url="http://www.example.com/my-article.html" data-theme="grey" data-orientation="vertical"></div>
+    <div class="shariff" data-backend-url="/path/to/backend" data-url="https://www.example.com/my-article.html" data-theme="grey" data-orientation="vertical"></div>
 
     <!-- vor dem schließenden </body>-Tag -->
-    <script src="/path/to/shariff.complete.js"></script>
+    <script src="/path/to/shariff.min.js"></script>
 </body>
 </html>
 ```
@@ -106,7 +106,7 @@ Unterschiede zu Shariff sind mit (1), (2) usw. markiert und werden unterhalb der
 | `data-media-url` | Zu teilendes Bild (pinterest) | `null` |
 | `data-orientation` | Anordnung der Buttons. Verfügbar: `horizontal`, `vertical` | `horizontal`  |
 | `data-referrer-track` | Wenn angegeben, wird dieser String an die geteilte URL angehängt. Mit `null` deaktivieren. | `null` |
-| `data-services` (3)   | Liste der Services, die verwendet werden sollen. Für die Verwendung im `data`-Attribut muss die Angabe Entity-enkodiert werden. Die Reihenfolge wird berücksichtigt. Beispiel: `data-services="[&quot;facebook&quot;,&quot;twitter&quot;]"` <br> Verfügbare Dienste: `twitter`, `facebook`, `facebooklike`, `linkedin`, `pinterest`, `xing`, `whatsapp`, `mail`, `info`, `addthis`, `tumblr`, `flattr`, `diaspora`, `reddit`, `stumbleupon`, `threema`, `weibo`, `tencent-weibo`, `qzone`, `print`, `telegram`, `vk`, `flipboard`, `pocket`, `buffer`  | `twitter`, `facebooklike`, `facebook`, `info` |
+| `data-services` (3)   | Liste der Services, die verwendet werden sollen. Für die Verwendung im `data`-Attribut muss die Angabe Entity-enkodiert werden. Die Reihenfolge wird berücksichtigt. Beispiel: `data-services="[&quot;facebook&quot;,&quot;twitter&quot;]"` <br> Verfügbare Dienste: `buffer`, `clipboard`, `diaspora`, `facebook`, `facebooklike`, `fediverse`, `flattr`, `flipboard`, `info`, `linkedin`, `mail`, `pinterest`, `pocket`, `print`, `qzone`, `reddit`, `stumbleupon`, `telegram`, `tencent`, `threema`, `tumblr`, `twitter`, `vk`, `weibo`, `whatsapp`, `xing` | `twitter`, `facebooklike`, `facebook`, `info` |
 | `data-theme`       | Farbschema auswählen. Verfügbar: `standard`, `grey` und `white`. | `standard` |
 | `data-title`       | Titel der zu teilenden Seite. | Entweder `DC.title`/`DC.creator` oder `<title>` |
 | `data-twitter-via` | User von dem der Tweet ursprünglich stammt. | `null` |
@@ -114,7 +114,7 @@ Unterschiede zu Shariff sind mit (1), (2) usw. markiert und werden unterhalb der
 
 (1) Diese Option gibt es nur bei Shariff-Plus.
 
-(2) Der Standardwert bei Shariff ist `http://ct.de/-2467514`.
+(2) Der Standardwert bei Shariff ist `https://ct.de/-2467514`.
 
 (3) Den Service `facebooklike` gibt es nur bei Shariff-Plus.
 
@@ -129,6 +129,36 @@ new Shariff(buttonsContainer, {
     orientation: 'vertical',
     mailUrl: 'mailto:me@example.com',
 });
+```
+
+## Events
+
+Beim Klick auf einen Share-Button wird der `shariff-share` Event ausgelöst.
+
+```js
+$('body').on('shariff-share', function(event) {
+    var service = event.details;
+    ...
+});
+```
+
+Der Event kann verwendet werden um die Interaktionen mittels Analyse-Software aufzuzeichnen. Eine saubere Integration mit dem Tracker setzt voraus, dass der Event-Handler erst registriert wird nachdem das Analytics-Script geladen wurde.
+
+**Beispiel für Piwik:**
+
+```js
+(function() {
+  var _my_piwik_onload = function() {
+    var piwik = this;
+
+    $('body').on('shariff-share', function(event) {
+      var service = event.detail;
+      piwik.trackEvent('Sharing', service.name);
+    });
+  }
+
+  _paq.push([ _my_piwik_onload ]);
+})();
 ```
 
 ## Unterstützte Browser
@@ -146,10 +176,11 @@ Die jeweils aktuell letzten und vorletzten Versionen von Firefox, Google Chrome,
 
 Shariff-Plus unterstützt folgende Social-Sharing-Services:
 
-- AddThis
 - buffer
+- Clipboard
 - diaspora*
 - facebook
+- Fediverse
 - Flattr
 - Flipboard
 - LinkedIn
@@ -180,13 +211,13 @@ Die Projekt-Homepage ist auch auf [Englisch](https://www.richard-fath.de/en/soft
 
 Wenn in den Shariff-Buttons die Share-Counts angezeigt werden sollen, wird das folgende Backend benötigt:
 
-* [shariff-backend-php](http://github.com/heiseonline/shariff-backend-php)
+* [shariff-backend-php](https://github.com/heiseonline/shariff-backend-php)
 
 Drittanbieter-Backends:
 
 * [shariff-backend-java](https://github.com/shred/shariff-backend-java)
 
-Die URL, unter der das Backend erreichbar ist, muss im `data`-Attribut `data-backend-url` angegeben werden. Ein Backend unter der URL `http://example.com/my-shariff-backend/` wird in `data-backend-url` so angegeben: `/my-shariff-backend/`. Den Rest erledigt das Skript.
+Die URL, unter der das Backend erreichbar ist, muss im `data`-Attribut `data-backend-url` angegeben werden. Ein Backend unter der URL `https://example.com/my-shariff-backend/` wird in `data-backend-url` so angegeben: `/my-shariff-backend/`. Den Rest erledigt das Skript.
 
 ## Drittanbieter-Integrationen
 

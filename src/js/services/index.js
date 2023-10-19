@@ -1,9 +1,10 @@
 module.exports = {
-  addthis: require('./addthis'),
   buffer: require('./buffer'),
+  clipboard: require('./clipboard'),
   diaspora: require('./diaspora'),
   facebook: require('./facebook'),
   facebooklike: require('./facebooklike'),
+  fediverse: require('./fediverse'),
   flattr: require('./flattr'),
   flipboard: require('./flipboard'),
   info: require('./info'),
@@ -23,5 +24,5 @@ module.exports = {
   vk: require('./vk'),
   weibo: require('./weibo'),
   whatsapp: require('./whatsapp'),
-  xing: require('./xing')
+  xing: require('./xing'),
 }

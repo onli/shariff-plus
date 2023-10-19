@@ -43,7 +43,7 @@ Usage example:
     <div class="shariff"></div>
 
     <h2>More advanced buttons:</h2>
-    <div class="shariff" data-backend-url="/path/to/backend" data-url="http://www.example.com/my-article.html" data-theme="grey" data-orientation="vertical"></div>
+    <div class="shariff" data-backend-url="/path/to/backend" data-url="https://www.example.com/my-article.html" data-theme="grey" data-orientation="vertical"></div>
 
     <!-- immediately before </body> -->
     <script src="/path/to/shariff.min.js"></script>
@@ -106,7 +106,7 @@ Differences to Shariff are marked with (1), (2) and so on and explained below th
 | `data-media-url` | Media url to be shared (pinterest) | `null` |
 | `data-orientation` | `vertical` will stack the buttons vertically. | `horizontal`  |
 | `data-referrer-track` | A string that will be appended to the share url. Can be disabled using `null`. | `null` |
-| `data-services` (3)   | An entity-encoded JSON string containing an array of service names to be enabled. Example: `data-services="[&quot;facebook&quot;,&quot;twitter&quot;]"` Available service names: `twitter`, `facebook`, `facebooklike`, `linkedin`, `pinterest`, `xing`, `whatsapp`, `mail`, `info`, `addthis`, `tumblr`, `flattr`, `diaspora`, `reddit`, `stumbleupon`, `threema`, `weibo`, `tencent-weibo`, `qzone`, `print`, `telegram`, `vk`, `flipboard`, `pocket`, `buffer` | `twitter`, `facebooklike`, `facebook`, `info` |
+| `data-services` (3)   | An entity-encoded JSON string containing an array of service names to be enabled. Example: `data-services="[&quot;facebook&quot;,&quot;twitter&quot;]"` Available service names: `buffer`, `clipboard`, `diaspora`, `facebook`, `facebooklike`, `fediverse`, `flattr`, `flipboard`, `info`, `linkedin`, `mail`, `pinterest`, `pocket`, `print`, `qzone`, `reddit`, `stumbleupon`, `telegram`, `tencent`, `threema`, `tumblr`, `twitter`, `vk`, `weibo`, `whatsapp`, `xing` | `twitter`, `facebooklike`, `facebook`, `info` |
 | `data-theme`       | We include 3 color schemes, `standard`, `grey` and `white`. | `standard` |
 | `data-title`       | Title to be used as share text in Twitter/Whatsapp | page's `DC.title`/`DC.creator` or `<title>` |
 | `data-twitter-via` | Screen name of the user to attribute the Tweet to | `null` |
@@ -114,7 +114,7 @@ Differences to Shariff are marked with (1), (2) and so on and explained below th
 
 (1) This option exists only in Shariff-Plus.
 
-(2) The default value of Shariff is `http://ct.de/-2467514`.
+(2) The default value of Shariff is `https://ct.de/-2467514`.
 
 (3) The service `facebooklike` exists only in Shariff-Plus.
 
@@ -132,6 +132,36 @@ new Shariff(buttonsContainer, {
 });
 ```
 
+## Events
+
+Shariff buttons emit the `shariff-share` event if they are clicked.
+
+```js
+$('body').on('shariff-share', function(event) {
+    var service = event.details;
+    ...
+});
+```
+
+This can be used to track shares using analytics software. It is recommended to register the event handler only after the analytics script becomes available.
+
+**Piwik example:**
+
+```js
+(function() {
+  var _my_piwik_onload = function() {
+    var piwik = this;
+
+    $('body').on('shariff-share', function(event) {
+      var service = event.detail;
+      piwik.trackEvent('Sharing', service.name);
+    });
+  }
+
+  _paq.push([ _my_piwik_onload ]);
+})();
+```
+
 ## Supported browsers
 
 Shariff-Plus supports the following Browsers:
@@ -147,10 +177,11 @@ The current and previous major releases of Firefox, Google Chrome, Internet Expl
 
 Shariff-Plus supports the following social sharing services:
 
-- AddThis
 - buffer
+- Clipboard
 - diaspora*
 - facebook
+- Fediverse
 - Flattr
 - Flipboard
 - LinkedIn
@@ -181,13 +212,13 @@ The project homepage is also available in [English](https://www.richard-fath.de/
 
 In order to display share counts with Shariff, you need the following backend:
 
-* [shariff-backend-php](http://github.com/heiseonline/shariff-backend-php)
+* [shariff-backend-php](https://github.com/heiseonline/shariff-backend-php)
 
 Third-party backends:
 
 * [shariff-backend-java](https://github.com/shred/shariff-backend-java)
 
-Once you have one of these backends up and running, insert its URL into the `data-backend-url` attribute. For example, if the backend runs under `http://example.com/my-shariff-backend/`, the `data-backend-url` should be `/my-shariff-backend/`. The script will handle the rest.
+Once you have one of these backends up and running, insert its URL into the `data-backend-url` attribute. For example, if the backend runs under `https://example.com/my-shariff-backend/`, the `data-backend-url` should be `/my-shariff-backend/`. The script will handle the rest.
 
 ## Third-party integrations
 

@@ -1,5 +1,23 @@
 # Changelog
 
+## v2.3.0, 2023-10-19
+
+Fetched from [heiseonline/shariff](https://github.com/heiseonline/shariff):
+
+- Remove AddThis service ([heiseonline#424](https://github.com/heiseonline/shariff/pull/424)).
+- Add button for Mastodon/Fediverse ([heiseonline#405](https://github.com/heiseonline/shariff/pull/405)).
+- Twitter: Updated max text length ([heiseonline#401](https://github.com/heiseonline/shariff/pull/401)).
+- Feature: copy to clipboard ([heiseonline#389](https://github.com/heiseonline/shariff/pull/389)).
+- Add support for shariff-share custom event ([heiseonline#266](https://github.com/heiseonline/shariff/pull/266)).
+- Compatibility to WordPress Theme Twentyseventeen ([heiseonline#265](https://github.com/heiseonline/shariff/pull/265)).
+- Update README.md to https ([heiseonline#432](https://github.com/heiseonline/shariff/pull/432)).
+- Code style changes.
+- Dependency updates.
+
+Fetched open pull requests from [heiseonline/shariff](https://github.com/heiseonline/shariff):
+
+- Fix missing services in demo, fix README files and add missing CSS for fediverse ([heiseonline#434](https://github.com/heiseonline/shariff/pull/434)).
+
 ## v2.2.3, 2021-06-13
 
 Fixed npm package.
