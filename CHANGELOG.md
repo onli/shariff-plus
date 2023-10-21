@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.3.1, 2023-10-21
+
+Remove Flattr service ([#23](https://github.com/richard67/shariff-plus/pull/23)).
+
 ## v2.3.0, 2023-10-19
 
 Fetched from [heiseonline/shariff](https://github.com/heiseonline/shariff):
