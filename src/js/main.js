@@ -62,10 +62,6 @@ const Defaults = {
 
   twitterVia: null,
 
-  flattrUser: null,
-
-  flattrCategory: null,
-
   // build URI from rel="canonical" or document.location
   url: function() {
     var url = document.location.href
