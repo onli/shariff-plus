@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.3.2, 2025-04-18
+
+Updated dependencies.
+
+Fetched from [heiseonline/shariff](https://github.com/heiseonline/shariff):
+
+- Update twitter button ([heiseonline#441](https://github.com/heiseonline/shariff/pull/441)).
+
+Fetched open pull requests from [heiseonline/shariff](https://github.com/heiseonline/shariff):
+
+- Fix tests failing due to PhantomJS not starting ([heiseonline#444](https://github.com/heiseonline/shariff/pull/444)).
+
 ## v2.3.1, 2023-10-21
 
 Remove Flattr service ([#23](https://github.com/richard67/shariff-plus/pull/23)).
