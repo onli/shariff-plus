@@ -205,6 +205,9 @@ class Shariff {
   }
 
   getFacebooklikeOptions() {
+    if (typeof this.options.facebooklikeOptions == 'string') {
+      return JSON.parse(this.options.facebooklikeOptions)
+    }
     return this.options.facebooklikeOptions
   }
 
