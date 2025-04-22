@@ -218,7 +218,7 @@ class Shariff {
     }
     var fbValue = null;
 
-    for (const [serviceName, value] of Object.entries(data)) {
+    for (var [serviceName, value] of Object.entries(data)) {
       if (value >= 1000) {
         value = Math.round(value / 1000) + 'k'
       }
