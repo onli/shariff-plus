@@ -25,10 +25,10 @@ const Defaults = {
   langFallback: 'en',
 
   mailUrl: function () {
-    var shareUrl = url.parse(this.getURL(), true)
-    shareUrl.query.view = 'mail'
+    var shareUrl = new URL(this.getURL())
+    shareUrl.searchParams.set('view', 'mail')
     delete shareUrl.search
-    return url.format(shareUrl)
+    return shareUrl
   },
 
   mailBody: function () {
@@ -314,35 +314,38 @@ class Shariff {
 
     // event delegation
     buttonList.addEventListener('click', function(e) {
-      e.preventDefault();
-      let target = e.target.closest('[data-rel="popup"]');
-      var url = target.href;
+      let target = e.target.closest('[data-rel="popup"]');      
+      if (target !== null) {
+        e.preventDefault();
+      
+        var url = target.href;
 
-      // if a twitter widget is embedded on current site twitter's widget.js
-      // will open a popup so we should not open a second one.
-      if (url.match(/twitter\.com\/intent\/(\w+)/)) {
-        var w = window
-        if (w.__twttr && w.__twttr.widgets && w.__twttr.widgets.loaded) {
+        // if a twitter widget is embedded on current site twitter's widget.js
+        // will open a popup so we should not open a second one.
+        if (url.match(/twitter\.com\/intent\/(\w+)/)) {
+          var w = window
+          if (w.__twttr && w.__twttr.widgets && w.__twttr.widgets.loaded) {
+            return
+          }
+        }
+
+        var dialogIdx = target.dataset['dlg_idx'];
+
+        if (dialogIdx && !isNaN(dialogIdx) && typeof dialogServices[dialogIdx].dialogHtml !== 'undefined') {
+          var title = target.getAttribute('title');
+          var headInnerHTML = '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
+            '<title>' + title + '</title>'
+          if (typeof dialogServices[dialogIdx].dialogCssUrl !== 'undefined' && dialogServices[dialogIdx].dialogCssUrl) {
+            headInnerHTML += '<link rel="stylesheet" href="' + dialogServices[dialogIdx].dialogCssUrl + '">'
+          }
+          var newWin = window.open('', '_blank', 'width=600,height=460')
+          newWin.document.head.innerHTML = headInnerHTML
+          newWin.document.body.innerHTML = dialogServices[dialogIdx].dialogHtml
           return
         }
+
+        window.open(url, '_blank', 'width=600,height=460')
       }
-
-      var dialogIdx = target.dataset['dlg_idx'];
-
-      if (dialogIdx && !isNaN(dialogIdx) && typeof dialogServices[dialogIdx].dialogHtml !== 'undefined') {
-        var title = target.getAttribute('title');
-        var headInnerHTML = '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
-          '<title>' + title + '</title>'
-        if (typeof dialogServices[dialogIdx].dialogCssUrl !== 'undefined' && dialogServices[dialogIdx].dialogCssUrl) {
-          headInnerHTML += '<link rel="stylesheet" href="' + dialogServices[dialogIdx].dialogCssUrl + '">'
-        }
-        var newWin = window.open('', '_blank', 'width=600,height=460')
-        newWin.document.head.innerHTML = headInnerHTML
-        newWin.document.body.innerHTML = dialogServices[dialogIdx].dialogHtml
-        return
-      }
-
-      window.open(url, '_blank', 'width=600,height=460')
     });
     
     this.element.append(buttonList);
