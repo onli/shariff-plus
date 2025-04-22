@@ -186,7 +186,7 @@ class Shariff {
 
   // returns shareCounts of document
   getShares(callback) {
-    var backend = new URL(this.options.backendUrl);
+    var backend = new URL(this.options.backendUrl, document.location);
     backend.searchParams.set('url', this.getURL());
     let myRequest = new Request(backend);
     fetch(myRequest)
