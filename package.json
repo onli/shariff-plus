@@ -3,9 +3,10 @@
   "version": "2.3.2",
   "description": "Shariff-Plus enables website users to share or like their favorite content without compromising their privacy. It is based on Shariff by Heise Medien GmbH & Co. KG.",
   "main": "src/js/shariff.js",
+  "type": "module",
   "scripts": {
     "dev": "lessc src/style/shariff-complete.less demo/shariff.complete.css && npx http-server -p 3000 demo/",
-    "test": "eslint src && rollup src/js/shariff.js -o test/shariff.complete.js && mocha -r jsdom-global/register",
+    "test": "eslint src && mocha -r jsdom-global/register",
     "build": "rm -fr dist && mkdir dist && lessc src/style/shariff-complete.less dist/shariff.complete.css && rollup src/js/shariff.js -o dist/shariff.complete.js",
     "build_zip": "7z a -tzip $BASE_NAME.zip ./dist/* && 7z a -ttar $BASE_NAME.tar ./dist/* && 7z a $BASE_NAME.tar.gz $BASE_NAME.tar"
   },

@@ -85,7 +85,7 @@ const Defaults = {
   },
 }
 
-class Shariff {
+export class Shariff {
   constructor(element, options) {
     // the DOM element that will contain the buttons
     this.element = element
@@ -354,13 +354,10 @@ class Shariff {
   }
 }
 
-module.exports = Shariff
-
-// export Shariff class to global (for non-Node users)
-global.Shariff = Shariff
-
 document.querySelectorAll('.shariff').forEach(function (currentValue, currentIndex, listObj) {
   if (!currentValue.hasOwnProperty('shariff')) {
     currentValue.shariff = new Shariff(currentValue, {theme: 'abc'});
   }
 });
+
+export default Shariff
