@@ -68,3 +68,6 @@ typings/
 # demo files
 demo/shariff.complete.css
 demo/shariff.complete.js
+
+# test files
+test/shariff.complete.js

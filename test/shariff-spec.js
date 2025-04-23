@@ -1,5 +1,5 @@
 const assert = require('assert')
-const Shariff = require('..')
+const Shariff = require('./shariff.complete.js')
 
 describe('Shariff', () => {
   let div = null

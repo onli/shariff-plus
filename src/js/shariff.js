@@ -1,6 +1,5 @@
 import * as services from './services/index.js';
 
-
 const shariffScript = document.currentScript ||
   document.querySelector('script[src$="shariff.js"]') ||
   document.querySelector('script[src$="shariff.min.js"]')
@@ -65,7 +64,7 @@ const Defaults = {
   // build URI from rel="canonical" or document.location
   url: function() {
     var url = document.location.href
-    var canonical = document.querySelector('link[rel=canonical]').href || this.getMeta('og:url') || ''
+    var canonical = document.querySelector('link[rel=canonical]')?.href || this.getMeta('og:url') || ''
 
     if (canonical.length > 0) {
       if (canonical.indexOf('http') < 0) {
@@ -173,7 +172,7 @@ class Shariff {
   getTitle() {
     let title = this.getOption('title')
     if (this.element.dataset['title']) {
-        return title
+      return title
     }
     title = title || this.getMeta('DC.title')
     let creator = this.getMeta('DC.creator')
@@ -193,7 +192,7 @@ class Shariff {
       .then(response => response.json())
       .then((json) => {
         callback(json);
-       });
+      });
   }
 
   getDialogsMediaUrl() {
@@ -214,7 +213,7 @@ class Shariff {
   // add value of shares for each service
   _updateCounts(data, status, xhr) {
     if (!data) {
-        return;
+      return;
     }
     var fbValue = null;
 
@@ -354,6 +353,11 @@ class Shariff {
     this.element.append(buttonList);
   }
 }
+
+module.exports = Shariff
+
+// export Shariff class to global (for non-Node users)
+global.Shariff = Shariff
 
 document.querySelectorAll('.shariff').forEach(function (currentValue, currentIndex, listObj) {
   if (!currentValue.hasOwnProperty('shariff')) {
