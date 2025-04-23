@@ -277,7 +277,7 @@ export class Shariff {
         typeof service.faName !== 'undefined'
       ) {
         var prefix = document.createElement('span');
-        // faPrefix can contain multiple classes, which we haveto add one by one (e.g. twitter)
+        // faPrefix can contain multiple classes, which we have to add one by one (e.g. twitter)
         service.faPrefix.split(" ").forEach((element) => prefix.classList.add(element));
         prefix.classList.add(service.faName);
         shareLink.prepend(prefix);
