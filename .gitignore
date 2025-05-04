@@ -69,6 +69,7 @@ typings/
 demo/app.css
 demo/shariff.complete.css
 demo/shariff.complete.js
+demo/shariff.min.css
 
 # test files
 test/shariff.complete.js
