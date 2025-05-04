@@ -5,7 +5,7 @@
   "main": "src/js/shariff.js",
   "type": "module",
   "scripts": {
-    "dev": "lessc src/style/shariff-complete.less demo/shariff.complete.css && npx http-server -p 3000 demo/",
+    "dev": "lessc src/style/shariff-complete.less demo/shariff.complete.css && lessc demo/app.less demo/app.css && npx http-server -p 3000 demo/",
     "test": "eslint src && mocha -r jsdom-global/register",
     "build": "rm -fr dist && mkdir dist && lessc src/style/shariff-complete.less dist/shariff.complete.css && rollup src/js/shariff.js -o dist/shariff.complete.js",
     "build_zip": "7z a -tzip $BASE_NAME.zip ./dist/* && 7z a -ttar $BASE_NAME.tar ./dist/* && 7z a $BASE_NAME.tar.gz $BASE_NAME.tar"

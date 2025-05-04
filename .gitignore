@@ -66,6 +66,7 @@ typings/
 .DS_Store
 
 # demo files
+demo/app.css
 demo/shariff.complete.css
 demo/shariff.complete.js
 
