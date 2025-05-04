@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "npm run -s build && npm run -s copy_demo && lessc demo/app.less demo/app.css && npx http-server -p 3000 demo/",
     "test": "eslint src && mocha -r jsdom-global/register",
-    "compile_less": "lessc src/style/shariff-complete.less dist/shariff.complete.css && lessc src/style/shariff.less dist/shariff.min.css",
+    "compile_less": "lessc src/style/shariff-complete.less dist/shariff.complete.css && lessc src/style/shariff.less dist/shariff.min.css && lessc src/style/dialogs/facebooklike_dlg.less dist/facebooklike_dlg.css",
     "compile_js": "rollup src/js/shariff.js -o dist/shariff.complete.js",
     "copy_demo": "rm -f demo/*.css && rm -f demo/*.js && cp dist/*.* demo/",
     "build": "rm -fr dist && mkdir dist && npm run -s compile_less && npm run -s compile_js",

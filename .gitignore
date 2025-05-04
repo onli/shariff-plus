@@ -67,6 +67,7 @@ typings/
 
 # demo files
 demo/app.css
+demo/facebooklike_dlg.css
 demo/shariff.complete.css
 demo/shariff.complete.js
 demo/shariff.min.css
