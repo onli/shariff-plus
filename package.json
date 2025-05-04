@@ -7,10 +7,11 @@
   "scripts": {
     "dev": "npm run -s build && npm run -s copy_demo && lessc demo/app.less demo/app.css && npx http-server -p 3000 demo/",
     "test": "eslint src && mocha -r jsdom-global/register",
-    "compile_less": "lessc src/style/shariff-complete.less dist/shariff.complete.css && lessc src/style/shariff.less dist/shariff.min.css && lessc src/style/dialogs/facebooklike_dlg.less dist/facebooklike_dlg.css",
+    "compile_less": "lessc --modify-var='fa-font-path=.' src/style/shariff-complete.less dist/shariff.complete.css && lessc src/style/shariff.less dist/shariff.min.css && lessc src/style/dialogs/facebooklike_dlg.less dist/facebooklike_dlg.css",
     "compile_js": "rollup src/js/shariff.js -o dist/shariff.complete.js",
-    "copy_demo": "rm -f demo/*.css && rm -f demo/*.js && cp dist/*.* demo/",
-    "build": "rm -fr dist && mkdir dist && npm run -s compile_less && npm run -s compile_js",
+    "copy_fonts": "cp node_modules/@fortawesome/fontawesome-free/webfonts/*.* dist/",
+    "copy_demo": "rm -f demo/*.css && rm -f demo/*.js && rm -f demo/*.ttf && rm -f demo/*.woff2 && cp dist/*.* demo/",
+    "build": "rm -fr dist && mkdir dist && npm run -s compile_less && npm run -s compile_js && npm run -s copy_fonts",
     "build_zip": "7z a -tzip $BASE_NAME.zip ./dist/* && 7z a -ttar $BASE_NAME.tar ./dist/* && 7z a $BASE_NAME.tar.gz $BASE_NAME.tar"
   },
   "repository": {

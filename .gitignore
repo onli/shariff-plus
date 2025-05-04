@@ -66,6 +66,8 @@ typings/
 .DS_Store
 
 # demo files
+demo/*.ttf
+demo/*.woff2
 demo/app.css
 demo/facebooklike_dlg.css
 demo/shariff.complete.css
