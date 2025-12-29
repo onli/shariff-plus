@@ -90,7 +90,7 @@ export class Shariff {
     // the DOM element that will contain the buttons
     this.element = element
 
-    this.options = Defaults;
+    this.options = Object.assign({}, Defaults);
     if (options) {
       for (let option in options) {
         this.options[option] = options[option];
@@ -101,7 +101,6 @@ export class Shariff {
         this.options[option] = element.dataset[option];
       }
     }
-    
 
     // filter available services to those that are enabled and initialize them
     this.services = Object.keys(services)
